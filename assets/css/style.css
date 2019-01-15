@@ -1,0 +1,21 @@
+.collection{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+}
+.gif-element{
+    display: grid;
+    grid-template-rows: auto 2rem;
+    align-items: center;
+}
+.gif-img{
+    width: 100%;
+    background-color: #777;
+}
+.rating{
+    line-height: 2rem;
+    font-size: 1.5rem;
+    background-color: #777;
+    color: white;
+    text-align: center;
+}
