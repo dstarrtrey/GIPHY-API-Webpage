@@ -18,7 +18,7 @@ $(document).ready(function(){
     const addMovieData = value =>{
         $("#movie-data").empty();
         $.ajax({
-            url: `http://www.omdbapi.com/?apikey=trilogy&t=${value}`,
+            url: `https://www.omdbapi.com/?apikey=trilogy&t=${value}`,
             method: "GET"
         }).then(function(response){
             const poster = $("<img>").attr("src",response.Poster).addClass("poster");
