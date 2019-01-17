@@ -1,12 +1,36 @@
+body{
+    background-color: #51ffff;
+}
+button, input{
+    background-color: #ff865e;
+    color: white;
+    font-size: 15px;
+    padding: 10px 15px;
+    margin: 5px 10px;
+    border-radius: 10px;
+    border: none;
+}
+button:hover, input:hover{
+    animation: color 1s linear infinite;
+}
+button:focus, input:focus{
+    background-color: #2ceb4e;
+    animation: none;
+}
 .collection{
+    margin-top: 25px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-row-gap: 15px;
+    grid-column-gap: 15px;
     width: 100%;
 }
 .gif-element{
     display: grid;
     grid-template-rows: auto 2rem;
     align-items: center;
+    border: 3px double #ff80ff;
+    background-color: #ffc4ff;
 }
 .gif-img{
     width: 100%;
@@ -15,7 +39,49 @@
 .rating{
     line-height: 2rem;
     font-size: 1.5rem;
-    background-color: #777;
+    background-color: #838bf3;
     color: white;
     text-align: center;
+}
+.palm{
+    position: fixed;
+    z-index: -1;
+    bottom: 0;
+    right: 0;
+    border-radius: 20px 0 0 0;
+}
+.data{
+    background-color: #e3fd8a;
+    color: #f24e31;
+    border-radius: 25px;
+    height: 300px;
+}
+.poster{
+    float: left;
+    max-height: 300px;
+    width: auto;
+    margin: 0 30px 15px 30px;
+
+}
+@keyframes color{
+    0% {background-color: #ff865e;}
+    25% {background-color: #ffc4ff;}
+    50% {background-color: #51ffff;}
+    75% {background-color: #ffc4ff;}
+    100% {background-color: #ff865e;}
+}
+@media screen and (max-width: 1200px){
+    .collection{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media screen and (max-width: 600px){
+    .collection{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 450px){
+    .collection{
+        grid-template-columns: 1fr;
+    }
 }
