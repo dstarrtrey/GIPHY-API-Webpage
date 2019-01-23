@@ -15,17 +15,12 @@ $(document).ready(function(){
             newGif(element.rating, element.images.original_still.url);
         });
     };
-    const addMovieData = async value =>{
+    const addMovieData = value =>{
         $("#movie-data").empty();
-        let data = $.ajax({
-            url: `https://www.omdbapi.com/?apikey=trilogy&t=${value}`,
-            method: "GET"
-        });
-        let response = await data;
-        const poster = $("<img>").attr("src",response.Poster).addClass("poster");
-        const name = $("<h1>").text(response.Title);
-        const yearGenre = $("<h3>").text(`(${response.Year}) Genre: ${response.Genre}`);
-        const plot = $("<p>").text(response.Plot);
+        const poster = $("<img>").attr("src",value.Poster).addClass("poster");
+        const name = $("<h1>").text(value.Title);
+        const yearGenre = $("<h3>").text(`(${value.Year}) Genre: ${value.Genre}`);
+        const plot = $("<p>").text(value.Plot);
         $("#movie-data").append(poster, name, yearGenre, plot);
     }
     $("#search").submit(function(event){
@@ -37,12 +32,17 @@ $(document).ready(function(){
         }
     });
     $(document).on("click", ".topic-btn", async function(){
-        addMovieData(this.value);
-        let data = $.ajax({
+        const movieReq = $.ajax({
+            url: `https://www.omdbapi.com/?apikey=trilogy&t=${this.value}`,
+            method: "GET"
+        });
+        const gifReq = $.ajax({
             url:`https://api.giphy.com/v1/gifs/search?q=${this.value}&api_key=NzFSyDo9wgOybNvbdlUoqAwHtAINPDtx&limit=10`,
             method: "GET"
         });
-        fill(await data);
+        const [movie, gif] = await Promise.all([movieReq, gifReq]);
+        addMovieData(movie);
+        fill(gif);
     });
     $(document).on("click", ".gif-img", function(){
         if($(this).hasClass("paused")){
