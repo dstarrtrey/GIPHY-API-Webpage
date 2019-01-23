@@ -15,18 +15,18 @@ $(document).ready(function(){
             newGif(element.rating, element.images.original_still.url);
         });
     };
-    const addMovieData = value =>{
+    const addMovieData = async value =>{
         $("#movie-data").empty();
-        $.ajax({
+        let data = $.ajax({
             url: `https://www.omdbapi.com/?apikey=trilogy&t=${value}`,
             method: "GET"
-        }).then(function(response){
-            const poster = $("<img>").attr("src",response.Poster).addClass("poster");
-            const name = $("<h1>").text(response.Title);
-            const yearGenre = $("<h3>").text(`(${response.Year}) Genre: ${response.Genre}`);
-            const plot = $("<p>").text(response.Plot);
-            $("#movie-data").append(poster, name, yearGenre, plot);
         });
+        let response = await data;
+        const poster = $("<img>").attr("src",response.Poster).addClass("poster");
+        const name = $("<h1>").text(response.Title);
+        const yearGenre = $("<h3>").text(`(${response.Year}) Genre: ${response.Genre}`);
+        const plot = $("<p>").text(response.Plot);
+        $("#movie-data").append(poster, name, yearGenre, plot);
     }
     $("#search").submit(function(event){
         const searchText = $("#search-text").val();
@@ -35,22 +35,14 @@ $(document).ready(function(){
             topics.push(searchText);
             $("#btn-collection").append($("<button>").text(searchText).val(searchText).addClass("topic-btn"));
         }
-        // $.ajax({
-        //     url: `https://api.giphy.com/v1/gifs/search?q=${$("#search-text").val()}&api_key=NzFSyDo9wgOybNvbdlUoqAwHtAINPDtx&limit=10`,
-        //     method: "GET"
-        // }).then(function(response){
-        //     fill(response);
-        // });
-        // return false;
     });
-    $(document).on("click", ".topic-btn", function(){
+    $(document).on("click", ".topic-btn", async function(){
         addMovieData(this.value);
-        $.ajax({
+        let data = $.ajax({
             url:`https://api.giphy.com/v1/gifs/search?q=${this.value}&api_key=NzFSyDo9wgOybNvbdlUoqAwHtAINPDtx&limit=10`,
             method: "GET"
-        }).then(function(response){
-            fill(response);
         });
+        fill(await data);
     });
     $(document).on("click", ".gif-img", function(){
         if($(this).hasClass("paused")){
