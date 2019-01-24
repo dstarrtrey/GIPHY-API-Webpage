@@ -64,13 +64,15 @@ $(document).ready(function() {
     }
   });
   $(document).on("click", ".topic-btn", async function() {
+    const omdbKey = "trilogy";
+    const giphyKey = "NzFSyDo9wgOybNvbdlUoqAwHtAINPDtx";
     const movieReq = $.ajax({
-      url: `https://www.omdbapi.com/?apikey=trilogy&t=${this.value}`,
+      url: `https://www.omdbapi.com/?apikey=${omdbKey}&t=${this.value}`,
       method: "GET"
     });
     const gifReq = $.ajax({
       // eslint-disable-next-line prettier/prettier
-      url: `https://api.giphy.com/v1/gifs/search?q=${this.value}&api_key=NzFSyDo9wgOybNvbdlUoqAwHtAINPDtx&limit=10`,
+      url: `https://api.giphy.com/v1/gifs/search?q=${this.value}&api_key=${giphyKey}&limit=10`,
       method: "GET"
     });
     const [movie, gif] = await Promise.all([movieReq, gifReq]);
